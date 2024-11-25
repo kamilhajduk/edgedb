@@ -72,7 +72,7 @@ EXPLORE_HTML = (r'''
       var fetcher = GraphiQL.createFetcher({
         url: window.location.toString().replace(/\/explore[\/]*$/, '')
       });
-	  var explorerPlugin = GraphiQLPluginExplorer.explorerPlugin();
+      var explorerPlugin = GraphiQLPluginExplorer.explorerPlugin();
 
       ReactDOM.render(
         React.createElement(
