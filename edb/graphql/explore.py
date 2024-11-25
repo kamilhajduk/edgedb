@@ -60,7 +60,7 @@ EXPLORE_HTML = (r'''
     <script src="//unpkg.com/graphiql@''' +
         _graphiql_ver + r'''/graphiql.min.js"></script>
     <script src="//unpkg.com/@graphiql/plugin-explorer@''' +
-        _graphiql_ver + r'''/dist/index.umd.js"></script>
+        _graphiql_explorer_ver + r'''/dist/index.umd.js"></script>
     <link href="//unpkg.com/graphiql@''' +
         _graphiql_ver + r'''/graphiql.min.css" rel="stylesheet" />
     <link href="//unpkg.com/@graphiql/plugin-explorer@''' +
