@@ -22,8 +22,9 @@ from __future__ import annotations
 import base64
 
 
-_react_ver = '16.8.3'
-_graphiql_ver = '0.12.0'
+_react_ver = '18.3.1'
+_graphiql_ver = '3.7.2'
+_graphiql_explorer_ver = '3.2.3'
 
 
 _edgedb_logo = base64.b64encode(br'''
@@ -52,32 +53,34 @@ EXPLORE_HTML = (r'''
       }
     </style>
 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/react/''' +
+    <script src="//unpkg.com/react@''' +
         _react_ver + r'''/umd/react.production.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/react-dom/''' +
+    <script src="//unpkg.com/react-dom@''' +
         _react_ver + r'''/umd/react-dom.production.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/graphiql/''' +
+    <script src="//unpkg.com/graphiql@''' +
         _graphiql_ver + r'''/graphiql.min.js"></script>
-    <link href="//cdnjs.cloudflare.com/ajax/libs/graphiql/''' +
+    <script src="//unpkg.com/@graphiql/plugin-explorer@''' +
+        _graphiql_ver + r'''/dist/index.umd.js"></script>
+    <link href="//unpkg.com/graphiql@''' +
         _graphiql_ver + r'''/graphiql.min.css" rel="stylesheet" />
+    <link href="//unpkg.com/@graphiql/plugin-explorer@''' +
+        _graphiql_explorer_ver + r'''/dist/style.css" rel="stylesheet" />
   </head>
   <body>
     <div id="graphiql">Loading...</div>
     <script><!--
-      function graphQLFetcher(graphQLParams) {
-        const root = window.location.toString().replace(/\/explore[\/]*$/, '');
-        return fetch(root, {
-          method: 'post',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(graphQLParams),
-        }).then(function(response) { return response.json() });
-      }
+      var fetcher = GraphiQL.createFetcher({
+        url: window.location.toString().replace(/\/explore[\/]*$/, '')
+      });
+	  var explorerPlugin = GraphiQLPluginExplorer.explorerPlugin();
 
       ReactDOM.render(
         React.createElement(
           GraphiQL,
           {
-            fetcher: graphQLFetcher,
+            fetcher: fetcher,
+            plugins: [explorerPlugin],
+            defaultTheme: "light"
           },
           React.createElement(
             GraphiQL.Logo,
